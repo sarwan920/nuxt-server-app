@@ -5,17 +5,24 @@ const form = ref({
   password: "",
 });
 
+const registrationResult = ref(null);
+
 async function register() {
-  console.log(form.value);
-  await useFetch("/api/register", {
-    method: "POST",
-    body: form.value,
-  });
+  try {
+    const data = await $fetch("/api/register", {
+      method: "POST",
+      body: form.value,
+    });
+    console.log(data);
+    registrationResult.value = data;
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 </script>
 <template>
   <div class="pt-60 flex flex-col mx-80 space-y-10">
-    <h1 class="text-4xl text-center text-white">Register</h1>
+    <h1 class="text-center text-white">Register {{ registrationResult }}</h1>
     <form @submit.prevent="register" class="flex flex-col space-y-6">
       <input
         class="p-2 rounded-md text-white bg-[#34495E]"

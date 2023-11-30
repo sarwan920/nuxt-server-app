@@ -1,29 +1,55 @@
 import { User } from '~/server/models/User'
+import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
+const config = useRuntimeConfig();
+
 export default defineEventHandler(async (event) => {
+
     const { name, email, password } = await readBody(event);
-    console.log(name, email, password);
-    if (!name) {
+
+    if (!name || !email || !password) {
         throw createError({
             statusCode: 400,
-            statusMessage: "Name is Required"
+            statusMessage: "All Fields are Required"
         })
     }
 
-    if (!email) {
+    // CHECK IF USER EXISTS
+    const userExists = await User.findOne({ email });
+    if (userExists) {
         throw createError({
             statusCode: 400,
-            statusMessage: "Email is Required"
+            statusMessage: "User already exists"
         })
     }
 
+    // HASH THE PASSWORD
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(password, salt);
-    const user = await User.create({ name: name, email: email, password: hashPassword })
+    const user = await User.create({ name, email, password: hashPassword })
 
-    return {
-        user
+    if (user) {
+        setResponseStatus(event, 201)
+        return {
+            _id: user.id,
+            name: user.name,
+            email: user.email,
+            token: generateToken(user._id)
+        }
+
+    } else {
+        throw createError({
+            statusCode: 400,
+            statusMessage: "Invalid User Data"
+        })
     }
 
 })
+
+function generateToken(id) {
+    return jwt.sign({ id }, config.jwtSecret, {
+        expiresIn: '30d',
+    })
+}
+
