@@ -9,7 +9,7 @@ const registrationResult = ref(null);
 
 async function register() {
   try {
-    const data = await $fetch("/api/register", {
+    const data = await $fetch("/api/users/register", {
       method: "POST",
       body: form.value,
     });

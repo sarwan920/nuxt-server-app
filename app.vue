@@ -1,5 +1,5 @@
 <template>
-  <div class="container h-screen bg-[#41B883] mx-auto">
+  <div class="bg-gray-200 h-screen">
     <NuxtPage />
   </div>
 </template>
