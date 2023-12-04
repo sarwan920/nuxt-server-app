@@ -4,7 +4,7 @@ import { User } from '~/server/models/User'
 const config = useRuntimeConfig();
 export default defineEventHandler(async (event) => {
     const reqUrl = getRequestURL(event).pathname
-    if (reqUrl.startsWith('/api/goals') || reqUrl.startsWith('/api/me')) {
+    if (reqUrl.startsWith('/api/goals') || reqUrl.startsWith('/api/me') || reqUrl.startsWith('/api/goal')) {
         let token
         const headers = getHeaders(event);
 
