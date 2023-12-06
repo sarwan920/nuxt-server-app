@@ -8,6 +8,7 @@ export default defineEventHandler(async (event) => {
 
     const { name, email, password } = await readBody(event);
 
+
     if (!name || !email || !password) {
         throw createError({
             statusCode: 400,

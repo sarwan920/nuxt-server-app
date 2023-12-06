@@ -6,6 +6,8 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
+    "@hypernym/nuxt-gsap",
+    "@vueuse/nuxt"
   ],
   runtimeConfig: {
     jwtSecret: process.env.JWT_SECRET,

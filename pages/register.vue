@@ -5,8 +5,32 @@ const form = ref({
   password: "",
 });
 
+// const { files,open, } = useFileDialog();
+
 const err = ref(false);
 const errMessage = ref("");
+const file = ref(null);
+async function onChange(event) {
+  const target = event.target;
+  if (target && target.files) {
+    file.value = target.files[0];
+  }
+}
+
+async function uploadPhoto() {
+  let formData = new FormData();
+  formData.append(form.value.name, file.value);
+
+  try {
+    const data = await $fetch("/api/file", {
+      method: "POST",
+      body: formData,
+    });
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 async function register() {
   try {
@@ -14,6 +38,9 @@ async function register() {
       method: "POST",
       body: form.value,
     });
+    if (data) {
+      await uploadPhoto();
+    }
     err.value = false;
     navigateTo("/login");
   } catch (error) {
@@ -47,6 +74,11 @@ async function register() {
           autocomplete="on"
           v-model="form.password"
           placeholder="Password"
+        />
+        <input
+          class="p-2 rounded-md text-gray-600 bg-gray-200"
+          type="file"
+          @change="onChange($event)"
         />
         <button
           type="submit"

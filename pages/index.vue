@@ -1,5 +1,6 @@
 <script setup>
 import { useUserStore } from "~/stores/userStore";
+// const { $gsap } = useNuxtApp();
 
 const userStore = useUserStore();
 definePageMeta({
@@ -8,10 +9,26 @@ definePageMeta({
 
 const text = ref("");
 
-async function addGoal() {
-  console.log(userStore.user?.token);
+async function deleteGoal(id) {
+  console.log(id);
   try {
-    const data = await $fetch("/api/goal", {
+    const data = await $fetch(`/api/goal/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${userStore.user?.token}`,
+      },
+    });
+    refresh();
+    console.log(data);
+  } catch (error) {
+    console.log(error.response);
+  }
+}
+
+async function editGoal() {}
+async function addGoal(id) {
+  try {
+    const data = await $fetch(`/api/goal`, {
       method: "POST",
       body: {
         text: text.value,
@@ -54,10 +71,29 @@ const { data, refresh } = await useFetch("/api/goals", {
       </button>
     </form>
 
-    <div class="w-2/4 mx-auto">
-      <h1 class="text-center text-4xl">YOUR GOALS</h1>
-      <div class="flex flex-col space-y-3">
-        <span class="p-1 border-2 border-red-400" v-for="goal in data">{{ goal.text }}</span>
+    <div class="w-2/4 mx-auto space-y-4">
+      <h1 class="title text-center text-4xl">YOUR GOALS</h1>
+      <div class="flex flex-col">
+        <div
+          v-for="goal in data"
+          class="flex justify-between odd:bg-gray-400 even:bg-green-50 first:rounded-tl-md first:rounded-tr-md last:rounded-bl-md last:rounded-br-md p-2"
+        >
+          <span class="p-1 w-2/3 my-auto">{{ goal.text }}</span>
+          <div class="my-auto space-x-4">
+            <button
+              class="bg-gray-300 px-4 py-2 rounded-md"
+              @click="editGoal(goal._id)"
+            >
+              Edit
+            </button>
+            <button
+              class="bg-red-300 px-4 py-2 rounded-md"
+              @click="deleteGoal(goal._id)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

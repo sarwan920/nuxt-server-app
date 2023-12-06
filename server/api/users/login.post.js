@@ -1,4 +1,5 @@
 import { User } from '~/server/models/User'
+import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
@@ -6,6 +7,8 @@ const config = useRuntimeConfig();
 
 export default defineEventHandler(async (event) => {
     const { email, password } = await readBody(event);
+    const storage = getStorage();
+
     if (!email || !password) {
         throw createError({
             statusCode: 400,
@@ -16,11 +19,14 @@ export default defineEventHandler(async (event) => {
 
     // const verify_password = await bcrypt.compare(password, user.password)
     if (user && (await bcrypt.compare(password, user.password))) {
+        const fileRef = ref(storage, `images/${user.name}`)
+        const downloadURL = await getDownloadURL(fileRef);
         setResponseStatus(event, 201)
         return {
             _id: user.id,
             name: user.name,
             email: user.email,
+            url: downloadURL,
             token: generateToken(user._id)
         }
     } else {
