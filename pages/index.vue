@@ -7,6 +7,11 @@ definePageMeta({
   middleware: "auth",
 });
 
+useSeoMeta({
+  title: "Goals",
+  description: "Page contains your goals.",
+});
+
 const text = ref("");
 
 async function deleteGoal(id) {

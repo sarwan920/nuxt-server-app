@@ -8,5 +8,6 @@ export const useUserStore = defineStore('user', () => {
 },
     {
         persist: true,
+        storage: persistedState.localStorage,
     }
 )

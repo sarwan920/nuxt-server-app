@@ -11,6 +11,5 @@ definePageMeta({
   <div class="">
     <p>{{ userStore.user?.name }}</p>
     <img :src="userStore.user?.url" :alt="userStore.user?.name" />
-    <p></p>
   </div>
 </template>

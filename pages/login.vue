@@ -7,6 +7,10 @@ const form = ref({
   password: "",
 });
 
+definePageMeta({
+middleware: "un-auth",
+});
+
 const err = ref(false);
 const errMessage = ref("");
 async function login() {

@@ -5,6 +5,10 @@ const form = ref({
   password: "",
 });
 
+definePageMeta({
+  middleware: "un-auth",
+});
+
 // const { files,open, } = useFileDialog();
 
 const err = ref(false);

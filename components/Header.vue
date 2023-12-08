@@ -16,6 +16,12 @@ function logout() {
         to="/"
         >Dashboard</NuxtLink
       >
+      <NuxtLink
+        v-show="userStore.isAuthenticated"
+        class="hover:font-bold hover:text-gray-600 transition-all"
+        to="/profile"
+        >Profile</NuxtLink
+      >
       <NuxtLink v-show="!userStore.isAuthenticated" to="/login">Login</NuxtLink>
       <NuxtLink v-show="!userStore.isAuthenticated" to="/register"
         >Register</NuxtLink
