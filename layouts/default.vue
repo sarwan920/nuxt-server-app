@@ -1,7 +1,7 @@
 <template>
   <Header />
-  <div class="h-screen bg-slate-200">
-    <div class="container mx-auto">
+  <div class="h-screen">
+    <div>
       <slot></slot>
     </div>
   </div>

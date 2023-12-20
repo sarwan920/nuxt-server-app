@@ -8,8 +8,10 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="">
+  <div
+    class="flex bg-red-500 dark:bg-purple-300 flex-col justify-center items-center"
+  >
     <p>{{ userStore.user?.name }}</p>
-    <img :src="userStore.user?.url" :alt="userStore.user?.name" />
+    <UAvatar size="lg" :src="userStore.user?.url" :alt="userStore.user?.name" />
   </div>
 </template>

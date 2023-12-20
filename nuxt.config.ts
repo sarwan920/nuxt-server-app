@@ -2,15 +2,22 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    "@nuxtjs/tailwindcss",
     "nuxt-icon",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "@hypernym/nuxt-gsap",
     "@vueuse/nuxt",
     "@nuxt/devtools",
+    "@nuxtjs/color-mode",
+    "@nuxt/ui",
+    "@unlok-co/nuxt-stripe",
   ],
   runtimeConfig: {
     jwtSecret: process.env.JWT_SECRET,
+  },
+  stripe: {
+    client: {
+      key: "pk_test_51OO0v3JdsTCJqiwy3Wi7HUqNFYxpPHVmBK8k8czU4Lm5rIKPHDRLahJ8qWRXfSLk3eCBELgVFV4xZIRVug9L4TRT00toFtBxzs",
+    },
   },
 });

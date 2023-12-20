@@ -76,8 +76,9 @@ const { data, refresh } = await useFetch("/api/goals", {
       </button>
     </form>
 
-    <div class="w-2/4 mx-auto space-y-4">
+    <div class="mx-auto space-y-4">
       <h1 class="title text-center text-4xl">YOUR GOALS</h1>
+
       <div class="flex flex-col">
         <div
           v-for="goal in data"
@@ -103,3 +104,4 @@ const { data, refresh } = await useFetch("/api/goals", {
     </div>
   </div>
 </template>
+

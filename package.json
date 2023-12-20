@@ -13,9 +13,10 @@
     "@hypernym/nuxt-gsap": "^2.4.2",
     "@nuxt/devtools": "latest",
     "@nuxt/ui": "^2.11.0",
-    "@nuxtjs/tailwindcss": "^6.9.3",
+    "@nuxtjs/color-mode": "^3.3.2",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@pinia/nuxt": "^0.5.1",
+    "@unlok-co/nuxt-stripe": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "nuxt": "^3.8.0",
     "nuxt-icon": "^0.6.1",
@@ -31,6 +32,7 @@
     "openai": "^4.14.2",
     "parallax-js": "^3.1.0",
     "puppeteer": "^21.5.0",
-    "puppeteer-screen-recorder": "^2.1.2"
+    "puppeteer-screen-recorder": "^2.1.2",
+    "resend": "^2.0.0"
   }
 }
