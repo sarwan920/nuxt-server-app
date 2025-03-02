@@ -1,24 +1,24 @@
 <script setup>
 const state = reactive({
   email: undefined,
-});
-const toast = useToast();
+})
+const toast = useToast()
 
 async function sendPasswordResetEmail() {
   try {
-    const data = await $fetch("/api/send", {
-      method: "POST",
+    const data = await $fetch('/api/auth/forgot-password', {
+      method: 'POST',
       body: state,
-    });
-
+    })
+    console.log(data)
     if (data?.data) {
       toast.add({
-        title: "Email has been send Successfully!",
-        icon: "i-heroicons-check-badge",
-      });
+        title: 'Email has been send Successfully!',
+        icon: 'i-heroicons-check-badge',
+      })
     }
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
 }
 </script>
